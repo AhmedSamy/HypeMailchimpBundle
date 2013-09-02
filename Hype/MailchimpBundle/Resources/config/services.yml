@@ -1,8 +1,0 @@
-parameters:
-    hype_mailchimp.class: Hype\MailchimpBundle\Mailchimp\MailChimp
-
-services:
-    hype_mailchimp:
-      class: %hype_mailchimp.class%
-      arguments: ["@service_container"]
-      
