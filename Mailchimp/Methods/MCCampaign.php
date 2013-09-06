@@ -297,7 +297,7 @@ class MCCampaign extends RestClient {
             'list_id' => !isset($list_id) ? $this->listId : $list_id,
             'options' => $options
         );
-        $apiCall = 'campaigns/template-content';
+        $apiCall = 'campaigns/segment-test';
         $data = $this->requestMonkey($apiCall, $payload);
         $data = json_decode($data, true);
         if (isset($data['error']))
