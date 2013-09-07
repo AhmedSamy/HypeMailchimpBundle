@@ -33,14 +33,6 @@ HypeMailChimp bundle released under MIT LICENSE
 
 **Lists related**
 
-1. `templates/add`
-1. `templates/list`
-1. `templates/del`
-1. `templates/info`
-1. `templates/undel`
-
-**Templates related**
-
 1. `lists/abuse-reports`
 1. `lists/activity`
 1. `lists/subscribe`
@@ -53,6 +45,16 @@ HypeMailChimp bundle released under MIT LICENSE
 1. `lists/interest-group-add`
 1. `lists/interest-group-update`
 1. `lists/interest-group-del`
+
+**Templates related**
+
+1. `templates/add`
+1. `templates/list`
+1. `templates/del`
+1. `templates/info`
+1. `templates/undel`
+
+
 
 **Export API**
 

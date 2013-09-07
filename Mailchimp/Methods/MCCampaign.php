@@ -16,6 +16,28 @@ use Hype\MailchimpBundle\Mailchimp\RestClient,
 
 class MCCampaign extends RestClient {
 
+    protected $cid = null;
+
+    /**
+     * set list id
+     * @param string $listId
+     * @return \Hype\MailchimpBundle\Mailchimp\Methods\MCList
+     */
+    public function setListId($listId) {
+        $this->listId = $listId;
+        return $this;
+    }
+
+    /**
+     * Set Campgain id
+     * @param int $cid
+     * @return \Hype\MailchimpBundle\Mailchimp\Methods\MCCampaign
+     */
+    public function setCi($cid) {
+        $this->cid = $cid;
+        return $this;
+    }
+
     /**
      * Create a new draft campaign to send. You can not have more than 32,000 campaigns in your account.
      * 
@@ -53,14 +75,13 @@ class MCCampaign extends RestClient {
      * Get the content (both html and text) for a campaign either as it would appear in the campaign archive or as the raw, original content
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/content.php
-     * @param string $id Campaign type
      * @param array $options
      * @return array Campaign content
      * @throws MailchimpAPIException
      */
-    public function content($id, $options = array()) {
+    public function content($options = array()) {
         $payload = array(
-            'cid' => $id,
+            'cid' => $this->cid,
             'options' => $options
         );
         $apiCall = 'campaigns/content';
@@ -110,13 +131,12 @@ class MCCampaign extends RestClient {
      * Delete a campaign. Seriously, "poof, gone!" - be careful! Seriously, no one can undelete these.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/delete.php
-     * @param string $id Campaign id
      * @return boolean
      * @throws MailchimpAPIException
      */
-    public function del($id) {
+    public function del() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/delete';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -131,13 +151,12 @@ class MCCampaign extends RestClient {
      * Pause an AutoResponder or RSS campaign from sending
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/pause.php
-     * @param string $id Campaign id
      * @return boolean
      * @throws MailchimpAPIException
      */
-    public function pause($id) {
+    public function pause() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/pause';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -152,13 +171,12 @@ class MCCampaign extends RestClient {
      * Returns information on whether a campaign is ready to send and possible issues we may have detected with it - very similar to the confirmation step in the app.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/ready.php
-     * @param string $id Campaign id
      * @return array
      * @throws MailchimpAPIException
      */
-    public function ready($id) {
+    public function ready() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/ready';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -173,13 +191,12 @@ class MCCampaign extends RestClient {
      * Replicate a campaign.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/replicate.php
-     * @param string $id Campaign id
      * @return boolean
      * @throws MailchimpAPIException
      */
-    public function replicate($id) {
+    public function replicate() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/replicate';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -194,13 +211,13 @@ class MCCampaign extends RestClient {
      * Resume sending an AutoResponder or RSS campaign
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/resume.php
-     * @param string $id Campaign id
+
      * @return boolean
      * @throws MailchimpAPIException
      */
-    public function resume($id) {
+    public function resume() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/resume';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -215,13 +232,12 @@ class MCCampaign extends RestClient {
      * Send a given campaign immediately. For RSS campaigns, this will "start" them.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/send.php
-     * @param type $id
      * @return boolean
      * @throws MailchimpAPIException
      */
-    public function send($id) {
+    public function send() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/send';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -235,19 +251,18 @@ class MCCampaign extends RestClient {
     /**
      * Send a test of this campaign to the provided email addresses
      * 
-     * @link http://apidocs.mailchimp.com/api/2.0/campaigns/send-test.php
-     * @param string $id Campaign id 
+     * @link http://apidocs.mailchimp.com/api/2.0/campaigns/send-test.php     
      * @param array $test_emails test email list
      * @param array $send_type "text" or "html"
      * @return boolean true on success
      * @throws \Exception
      * @throws MailchimpAPIException
      */
-    public function sendTest($id, $test_emails = array(), $send_type = 'html') {
+    public function sendTest($test_emails = array(), $send_type = 'html') {
         if (!in_array(strtoupper($sort_dir), array("html", "text")))
             throw new \Exception('send_type  has to be one of "html", "text" ');
         $payload = array(
-            'cid' => $id,
+            'cid' => $this->cid,
             'test_emails' => $test_emails,
             'send_type' => $send_type
         );
@@ -266,13 +281,12 @@ class MCCampaign extends RestClient {
      * You only want to use this if you want to allow editing template sections in your application.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/template-content.php 
-     * @param string $id Campaign id
-     * @return boolean
+     * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function templateContent($id) {
+    public function templateContent() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/template-content';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -287,14 +301,13 @@ class MCCampaign extends RestClient {
      * Allows one to test their segmentation rules before creating a campaign using them
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/segment-test.php
-     * @param string $list_id the list to test segmentation on
      * @param array $options optional
      * @return int The total number of subscribers matching your segmentation options 
      * @throws MailchimpAPIException
      */
-    public function segmentTest($list_id = false, $options = array()) {
+    public function segmentTest($options = array()) {
         $payload = array(
-            'list_id' => !isset($list_id) ? $this->listId : $list_id,
+            'list_id' => $this->listId,
             'options' => $options
         );
         $apiCall = 'campaigns/segment-test';
@@ -310,15 +323,14 @@ class MCCampaign extends RestClient {
      * Schedule a campaign to be sent in the future
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/schedule.php
-     * @param string $id the id of the campaign to schedule 
      * @param string $schedule_time
      * @param string $schedule_time_b
      * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function schedule($id, $schedule_time, $schedule_time_b = null) {
+    public function schedule($schedule_time, $schedule_time_b = null) {
         $payload = array(
-            'cid' => $id,
+            'cid' => $this->cid,
             'schedule_time' => $schedule_time,
             'schedule_time_b' => $schedule_time_b
         );
@@ -335,16 +347,15 @@ class MCCampaign extends RestClient {
      * Schedule a campaign to be sent in batches sometime in the future. Only valid for "regular" campaigns
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/schedule-batch.php
-     * @param string $id
      * @param string $schedule_time
      * @param int $num_batches
      * @param int $stagger_mins
      * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function scheduleBatch($id, $schedule_time, $num_batches = 2, $stagger_mins = 5) {
+    public function scheduleBatch($schedule_time, $num_batches = 2, $stagger_mins = 5) {
         $payload = array(
-            'cid' => $id,
+            'cid' => $this->cid,
             'schedule_time' => $schedule_time,
             'num_batches' => $num_batches,
             'stagger_mins' => $stagger_mins
@@ -362,13 +373,12 @@ class MCCampaign extends RestClient {
      * Unschedule a campaign that is scheduled to be sent in the future
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/unschedule.php
-     * @param string $id the id of the campaign to unschedule 
      * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function unschedule($id) {
+    public function unschedule() {
         $payload = array(
-            'cid' => $id
+            'cid' => $this->cid
         );
         $apiCall = 'campaigns/unschedule';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -389,9 +399,9 @@ class MCCampaign extends RestClient {
      * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function update($id, $name, $value) {
+    public function update($name, $value) {
         $payload = array(
-            'cid' => $id,
+            'cid' => $this->cid,
             'name' => $name,
             'value' => $value
         );

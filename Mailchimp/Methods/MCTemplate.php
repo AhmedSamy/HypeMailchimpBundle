@@ -16,13 +16,25 @@ use Hype\MailchimpBundle\Mailchimp\RestClient,
 
 class MCTemplate extends RestClient {
 
+    protected $templateId=null;
+    
     /**
+     * Set template id
+     * @param type $templateId
+     * @return \Hype\MailchimpBundle\Mailchimp\Methods\MCTemplate
+     */
+    public function setTemplateId($templateId) {
+        $this->templateId = $templateId;
+        return $this;
+    }
+
+        /**
      * Create a new user template, NOT campaign content. These templates can then be applied while creating campaigns.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/templates/add.php
-     * @param string $name
-     * @param string $html
-     * @param int $folderId
+     * @param string $name the name for the template - names must be unique and a max of 50 bytes 
+     * @param string $html a string specifying the entire template to be created. This is NOT campaign conten
+     * @param int $folderId optional the folder to put this template in. 
      * @return int template_id on success
      * @throws MailchimpAPIException
      */
@@ -45,8 +57,8 @@ class MCTemplate extends RestClient {
      * Retrieve various templates available in the system, allowing some thing similar to our template gallery to be created.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/templates/list.php
-     * @param array $types optional
-     * @param array $filters optional
+     * @param array $types optional the types of templates to return 
+     * @param array $filters optional options to control how inactive templates are returned, if at all 
      * @return array
      * @throws MailchimpAPIException
      */
@@ -68,13 +80,12 @@ class MCTemplate extends RestClient {
      * Delete (deactivate) a user template
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/templates/del.php 
-     * @param int $id template_id
-     * @return boolean
+     * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function del($id) {
+    public function del() {
         $payload = array(
-            'template_id' => $id
+            'template_id' => $this->templateId
         );
         $apiCall = 'templates/del';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -89,14 +100,13 @@ class MCTemplate extends RestClient {
      * Pull details for a specific template to help support editing
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/templates/info.php
-     * @param int $id template_id
-     * @param string $type Optional
+     * @param string $type optional the template type to load - one of 'user', 'gallery', 'base', defaults to user. 
      * @return array
      * @throws MailchimpAPIException
      */
-    public function info($id, $type = null) {
+    public function info($type = 'user') {
         $payload = array(
-            'template_id' => $id,
+            'template_id' => $this->templateId,
             'type' => $type
         );
         $apiCall = 'templates/info';
@@ -112,13 +122,12 @@ class MCTemplate extends RestClient {
      * Undelete (reactivate) a user template
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/templates/undel.php
-     * @param int $id
-     * @return boolean
+     * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function undel($id) {
+    public function undel() {
         $payload = array(
-            'template_id' => $id
+            'template_id' => $this->templateId
         );
         $apiCall = 'templates/undel';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -133,13 +142,13 @@ class MCTemplate extends RestClient {
      * Replace the content of a user template, NOT campaign content.
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/templates/update.php
-     * @param type $id
-     * @return boolean
+     * @param array $options the values to updates - while both are optional, at least one should be provided. Both can be updated at the same time. 
+     * @return boolean true on success
      * @throws MailchimpAPIException
      */
-    public function update($id, $options = array()) {
+    public function update( $options = array()) {
         $payload = array(
-            'template_id' => $id,
+            'template_id' => $this->templateId,
             'values' => $options
         );
         $apiCall = 'templates/update';
@@ -157,7 +166,7 @@ class MCTemplate extends RestClient {
      * Delete template by name
      * 
      * @param string $name
-     * @return boolean
+     * @return boolean on success
      * @throws MailchimpAPIException
      */
     public function delByName($name) {
