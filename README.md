@@ -121,3 +121,77 @@ hype_mailchimp:
         $mailchimp = $this->get('hype_mailchimp');
 ?>
 ```
+
+##Examples
+
+###Create new campaign
+``` php
+<?php 
+    $mc = $this->get('hype_mailchimp');
+        $data = $mc->getCampaign()->create('regular', array(
+            'list_id' => '93419bbdc0',
+            'subject' => 'test created subject',
+            'from_email' => 'ahmed.samy.cs@gmail.com',
+            'from_name' => 'Ahmed Samy',
+            'to_name' => 'fans'
+                ), array(
+            'html' => '<h5>Html content</h5>',
+            'sections' => array(),
+            'text' => 'test',
+            'url' => 'http://www.example.com',
+            'archive' => 'test'
+        ));
+        var_dump($data);
+?>
+```
+###Delete existing campaign
+``` php
+<?php 
+     $mc = $this->get('hype_mailchimp');
+     $data = $mc->getCampaign()
+                ->setCi('1088b4ed65')
+                ->del();
+
+        var_dump($data);
+?>
+```
+
+###Send campaign
+``` php
+<?php 
+     $mc = $this->get('hype_mailchimp');
+     $data = $mc->getCampaign()
+                ->setCi('1088b4ed65')
+                ->send();
+
+        var_dump($data);
+?>
+```
+
+###Subscribe new user to list
+``` php
+<?php 
+     $mc = $this->get('hype_mailchimp');
+     $data = $mc->getList()
+                ->addMerge_vars(
+                        array(
+                            'mc_notes' => 'test notes'
+                ))
+                ->subscribe('moneky@suitMonkry.com');
+        var_dump($data);
+?>
+```
+**Note** that the user will be subscriber to the default list set in `config.yml` 
+if you want to change the list for this time only, you can use 
+``` php
+<?php 
+     $mc = $this->get('hype_mailchimp');
+     $data = $mc->getList()
+                ->setListId('xxxxxxx')
+                ->addMerge_vars(
+                        array(
+                            'mc_notes' => 'test notes'
+                ))
+                ->subscribe('moneky@suitMonkry.com');
+?>
+```
