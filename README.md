@@ -61,7 +61,7 @@ HypeMailChimp bundle released under MIT LICENSE
 1. `list`
 2. `campaignSubscriberActivity`
 
-Need support for a method not on the list submit an [issue](HypeMailchimpBundle/issues/new)
+Need support for a method not on the list submit an [issue](https://github.com/AhmedSamy/HypeMailchimpBundle/issues/new)
 
 ## Setup
 
