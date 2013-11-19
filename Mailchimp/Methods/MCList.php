@@ -43,7 +43,7 @@ class MCList extends RestClient {
 
     /**
      * Add to merge vars array
-     * 
+     *
      * @param mix $merge_vars
      */
     public function addMerge_vars($merge_vars) {
@@ -62,7 +62,7 @@ class MCList extends RestClient {
 
     /**
      * Get all email addresses that complained about a campaign sent to a list
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/abuse-reports.php
      * @param int $start
      * @param int $limit
@@ -88,7 +88,7 @@ class MCList extends RestClient {
 
     /**
      * Access up to the previous 180 days of daily detailed aggregated activity stats for a given list. Does not include AutoResponder activity.
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/activity.php
      * @return array
      * @throws MailchimpAPIException
@@ -122,7 +122,7 @@ class MCList extends RestClient {
     /**
      * Subscribe a batch of email addresses to a list at once,
      * These calls are also long, so be sure you increase your timeout values
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/batch-subscribe.php
      * @param string $email
      * @param string $email_type
@@ -162,7 +162,7 @@ class MCList extends RestClient {
 
     /**
      * Unsubscribe the given email address from the list
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/unsubscribe.php
      * @param string $email_id
      * @param boolean $delete_member
@@ -199,7 +199,7 @@ class MCList extends RestClient {
 
     /**
      * Get all the information for particular members of a list
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/member-info.php
      * @param mix $email_id email id or ids array of emails or string
      * @param string $email_identifier optional can be (email,euid, leid)
@@ -215,7 +215,7 @@ class MCList extends RestClient {
                 $email_ids[] = array($email_identifier => $email);
             }
         } else {
-            $email_ids = array($email_identifier => $email_id);
+            $email_ids[] = array($email_identifier => $email_id);
         }
         $payload = array(
             'id' => $this->listId,
@@ -232,7 +232,7 @@ class MCList extends RestClient {
 
     /**
      * Edit the email address, merge fields, and interest groups for a list member. If you are doing a batch update on lots of users, consider using listBatchSubscribe() with the update_existing and possible replace_interests parameter.
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/update-member.php
      * @param string $email_id optinal
      * @param string $email_type optional can be "html" or "text", defaults "html"
@@ -267,7 +267,7 @@ class MCList extends RestClient {
 
     /**
      * Get the list of interest groupings for a given list, including the label, form information, and included groups for each
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-groupings.php
      * @param bool $count optional wether to get subscriber count or not
      * @return array all groups information for specific list
@@ -291,10 +291,10 @@ class MCList extends RestClient {
 
     /**
      * Add a new Interest Grouping - if interest groups for the List are not yet enabled, adding the first grouping will automatically turn them on.
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-grouping-add.php
-     * @param string $name the interest grouping to add - grouping names must be unique 
-     * @param string $type The type of the grouping to add - one of "checkboxes", "hidden", "dropdown", "radio" 
+     * @param string $name the interest grouping to add - grouping names must be unique
+     * @param string $type The type of the grouping to add - one of "checkboxes", "hidden", "dropdown", "radio"
      * @param array $groups The lists of initial group names to be added - at least 1 is required and the names must be unique within a grouping. If the number takes you over the 60 group limit
      * @return array contains id of the new group
      * @throws MailchimpAPIException
@@ -319,7 +319,7 @@ class MCList extends RestClient {
 
     /**
      * Delete an existing Interest Grouping - this will permanently delete all contained interest groups and will remove those selections from all list members
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-grouping-del.php
      * @param int $group_id optional the interest grouping id
      * @return boolean true on success
@@ -342,10 +342,10 @@ class MCList extends RestClient {
 
     /**
      * Update an existing Interest Grouping
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-grouping-update.php
-     * @param string $name The name of the field to update - either "name" or "type". Groups within the grouping should be manipulated using the standard listInterestGroup* methods 
-     * @param string $value The new value of the field. Grouping names must be unique - only "hidden" and "checkboxes" grouping types can be converted between each other. 
+     * @param string $name The name of the field to update - either "name" or "type". Groups within the grouping should be manipulated using the standard listInterestGroup* methods
+     * @param string $value The new value of the field. Grouping names must be unique - only "hidden" and "checkboxes" grouping types can be converted between each other.
      * @param int $group_id optional unless not has been set before
      * @return boolean true on success
      * @throws MailchimpAPIException
@@ -369,10 +369,10 @@ class MCList extends RestClient {
 
     /**
      * Add a single Interest Group - if interest groups for the List are not yet enabled, adding the first group will automatically turn them on.
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-group-add.php
-     * @param string $name the interest group to add - group names must be unique within a grouping 
-     * @param int $group_id optional The grouping to add the new group to - get using listInterestGrouping() . If not supplied, the first grouping on the list is used. 
+     * @param string $name the interest group to add - group names must be unique within a grouping
+     * @param int $group_id optional The grouping to add the new group to - get using listInterestGrouping() . If not supplied, the first grouping on the list is used.
      * @return boolean true on success
      * @throws MailchimpAPIException
      */
@@ -395,11 +395,11 @@ class MCList extends RestClient {
 
     /**
      * Change the name of an Interest Group
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-group-update.php
-     * @param string $old_name the interest group name to be changed 
-     * @param string $new_name the new interest group name to be set 
-     * @param int $grouping_id optional  The grouping to delete the group from  If not supplied, the first grouping on the list is used. 
+     * @param string $old_name the interest group name to be changed
+     * @param string $new_name the new interest group name to be set
+     * @param int $grouping_id optional  The grouping to delete the group from  If not supplied, the first grouping on the list is used.
      * @return boolean true on success
      * @throws MailchimpAPIException
      */
@@ -423,9 +423,9 @@ class MCList extends RestClient {
 
     /**
      * Delete a single Interest Group - if the last group for a list is deleted, this will also turn groups for the list off.
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/interest-group-del.php
-     * @param string $name the name of interest group to delete 
+     * @param string $name the name of interest group to delete
      * @param int $grouping_id optional The grouping to delete the group from. If not supplied, the first grouping on the list is used
      * @return boolean true on success
      * @throws MailchimpAPIException
