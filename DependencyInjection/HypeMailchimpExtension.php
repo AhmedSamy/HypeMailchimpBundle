@@ -23,12 +23,7 @@ class HypeMailchimpExtension extends Extension {
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-
-        foreach (array('api_key', 'default_list', 'ssl') as $attribute) {
-            if (isset($config[$attribute])) {
-                $container->setParameter('hype_mail_chimp.' . $attribute, $config[$attribute]);
-            }
-        }
+        $container->setParameter('hypemailchimp.config',$config);
     }
 
 }

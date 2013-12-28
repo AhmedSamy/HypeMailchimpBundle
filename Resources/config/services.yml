@@ -4,5 +4,5 @@ parameters:
 services:
     hype_mailchimp:
       class: %hype_mailchimp.class%
-      arguments: ["@service_container"]
+      arguments: [%hypemailchimp.config%]
       

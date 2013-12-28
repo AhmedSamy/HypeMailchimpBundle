@@ -20,8 +20,8 @@ class Configuration implements ConfigurationInterface {
         $rootNode->children()
                     ->scalarNode('api_key')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('default_list')->isRequired()->cannotBeEmpty()->end()
-//                    ->scalarNode('format')->defaultValue('JSON')->isRequired()->cannotBeEmpty()->end()
                     ->booleanNode('ssl')->defaultTrue()->end()
+                    ->integerNode('timeout')->defaultValue(20)->end()
                   ->end();
 
         return $treeBuilder;
