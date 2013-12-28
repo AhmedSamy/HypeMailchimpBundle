@@ -33,6 +33,7 @@ HypeMailChimp bundle released under MIT LICENSE
 
 **Lists related**
 
+1. `lists/list`
 1. `lists/abuse-reports`
 1. `lists/activity`
 1. `lists/subscribe`
