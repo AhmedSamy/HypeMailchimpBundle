@@ -47,7 +47,7 @@ class MCList extends RestClient {
      * @param mix $merge_vars
      */
     public function addMerge_vars($merge_vars) {
-        $this->merge_vars[] = $merge_vars;
+        $this->merge_vars=array_merge($this->merge_vars,$merge_vars);
         return $this;
     }
 
