@@ -497,5 +497,78 @@ class MCList extends RestClient
         else
             return true;
     }
+    
+    /**
+     * Save a segment against a list for later use. - no limit
+     * After creating the segment, add members with addMembersStaticSegment
+     * @link http://apidocs.mailchimp.com/api/2.0/lists/static-segment-members-add.php
+     *
+     * @param $name - Name of segment
+     * @return bool/int - ID of new segment
+     * @throws MailchimpAPIException
+     */
+    public function addStaticSegment($name) {
+        $payload = array(
+            'id' => $this->listId,
+            'name' => $name,
+        );
+
+        $apiCall = 'lists/static-segment-add';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data['id']) ? $data['id'] : false;
+    }
+
+    /**
+     * Save members to a static segment
+     * @link http://apidocs.mailchimp.com/api/2.0/lists/static-segment-members-add.php
+     *
+     * @param $seg_id
+     * @param $batch - array of emails and uuid
+     * @return bool
+     * @throws MailchimpAPIException
+     */
+    public function addMembersStaticSegment($seg_id, $batch) {
+        $payload = array(
+            'id' => $this->listId,
+            'seg_id' => $seg_id,
+            'batch' => $batch
+        );
+
+        $apiCall = 'lists/static-segment-members-add';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data) ? $data : false;
+    }
+
+    /**
+     * Retrieve all of the Static Segments for a list.
+     * @link http://apidocs.mailchimp.com/api/2.0/lists/static-segments.php
+     *
+     * @return bool|mixed
+     * @throws \Hype\MailchimpBundle\Mailchimp\MailchimpAPIException
+     */
+    public function listStaticSegments() {
+        $payload = array(
+            'id' => $this->listId,
+        );
+
+        $apiCall = 'lists/static-segments';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data) ? $data : false;
+    }
 
 }
