@@ -112,10 +112,20 @@ class MCList extends RestClient
             return isset($data) ? $data : false;
     }
 
-    public function batchSubscribe()
-    {
+    /**
+     * Subscribe a batch of email addresses to a list at once,
+     * These calls are also long, so be sure you increase your timeout values
+     *
+     * @link http://apidocs.mailchimp.com/api/2.0/lists/batch-subscribe.php
+     * @param string $batch - array of arrays with ['email','email_type','merge_vars']
+     * @return array
+     * @throws MailchimpAPIException
+     **/
+    public function batchSubscribe($batch) {
         $payload = array(
-            'id' => $this->listId
+            'id' => $this->listId,
+            'batch' => $batch,
+            'double_optin' => false,
         );
         $apiCall = 'lists/batch-subscribe';
         $data = $this->requestMonkey($apiCall, $payload);
@@ -127,9 +137,9 @@ class MCList extends RestClient
     }
 
     /**
-     * Subscribe a batch of email addresses to a list at once,
+     * Subscribe an email addresses to a list,
      * These calls are also long, so be sure you increase your timeout values
-     * 
+     *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php
      * @param string $email
      * @param string $email_type
@@ -140,9 +150,8 @@ class MCList extends RestClient
      * @param string $email_identifier optional can be (email,euid, leid)
      * @return array
      * @throws MailchimpAPIException
-     */
-    public function subscribe($email_id, $email_type = 'html', $double_optin = true, $update_existing = true, $replace_interests = true, $send_welcome = false, $email_identifier = 'email')
-    {
+     **/
+    public function subscribe($email_id, $email_type = 'html', $double_optin = true, $update_existing = true, $replace_interests = true, $send_welcome = false, $email_identifier = 'email') {
         if (!in_array($email_identifier, array("email", "euid", "leid")))
             throw new InvalidArgumentException('email identifier should be one of ("email","euid","leid")');
 
