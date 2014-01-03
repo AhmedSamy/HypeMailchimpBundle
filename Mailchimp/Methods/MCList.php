@@ -251,6 +251,31 @@ class MCList extends RestClient
     }
 
     /**
+     * Get a list of members for a list
+     *
+     * @link http://apidocs.mailchimp.com/api/2.0/lists/members.php
+     * @param string $status optional 'subscribed', 'unsubscribed', 'cleaned'
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function members($status = 'subscribed') {
+
+        $payload = array(
+            'id' => $this->listId,
+            'status' => $status
+        );
+
+        $apiCall = 'lists/members';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data) ? $data : false;
+
+    }
+    
+    /**
      * Retrieve all of the lists defined for your user account
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/lists/list.php
