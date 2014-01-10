@@ -61,7 +61,13 @@ class MCExport extends RestClient {
 
         $payload = array_merge(array('id' => $id), $options);
         $data = $this->requestMonkey($api, $payload, true);
-
+        
+        // If json_decode doesn't seem to work when there are separated objects
+        if ($jData = json_decode($data,true)) {
+            return $jData;
+        }
+        // We combine them into one object
+        $data = preg_replace('/(}\s{)/',',',$data);
         return json_decode($data,true);
     }
 
