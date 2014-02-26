@@ -174,10 +174,6 @@ hype_mailchimp:
 <?php 
      $mc = $this->get('hype_mailchimp');
      $data = $mc->getList()
-                ->addMerge_vars(
-                        array(
-                            'mc_notes' => 'test notes'
-                ))
                 ->subscribe('moneky@suitMonkry.com');
         var_dump($data);
 ?>
