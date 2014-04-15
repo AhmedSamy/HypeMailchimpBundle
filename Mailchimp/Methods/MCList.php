@@ -118,14 +118,19 @@ class MCList extends RestClient
      *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/batch-subscribe.php
      * @param string $batch - array of arrays with ['email','email_type','merge_vars']
+     * @param boolean $double_optin optional
+     * @param boolean $update_existing optional
+     * @param boolean $replace_interests optional
      * @return array
      * @throws MailchimpAPIException
      **/
-    public function batchSubscribe($batch) {
+    public function batchSubscribe($batch, $double_optin = true, $update_existing = true, $replace_interests = true) {
         $payload = array(
             'id' => $this->listId,
             'batch' => $batch,
-            'double_optin' => false,
+            'double_optin' => $double_optin,
+            'update_existing' => $update_existing,
+            'replace_interests' => $replace_interests,
         );
         $apiCall = 'lists/batch-subscribe';
         $data = $this->requestMonkey($apiCall, $payload);
