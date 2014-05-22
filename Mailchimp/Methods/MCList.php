@@ -260,15 +260,20 @@ class MCList extends RestClient
      *
      * @link http://apidocs.mailchimp.com/api/2.0/lists/members.php
      * @param string $status optional 'subscribed', 'unsubscribed', 'cleaned'
+     * @param array $opts optional
      * @return array
      * @throws InvalidArgumentException
      */
-    public function members($status = 'subscribed') {
+    public function members($status = 'subscribed', $opts = null) {
 
         $payload = array(
             'id' => $this->listId,
             'status' => $status
         );
+
+        if (!is_null($opts)) {
+            $payload['opts'] = $opts;
+        }
 
         $apiCall = 'lists/members';
         $data = $this->requestMonkey($apiCall, $payload);
