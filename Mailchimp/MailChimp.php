@@ -69,7 +69,7 @@ class MailChimp extends RestClient
 
     /**
      *
-     * @return \Hype\MailchimpBundle\Mailchimp\MailChimpMethods\CustomMCTemplate
+     * @return \Hype\MailchimpBundle\Mailchimp\Methods\MCTemplate
      */
     public function getTemplate()
     {
