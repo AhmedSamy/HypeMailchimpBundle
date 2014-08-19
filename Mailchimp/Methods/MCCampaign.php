@@ -259,7 +259,7 @@ class MCCampaign extends RestClient {
      * @throws MailchimpAPIException
      */
     public function sendTest($test_emails = array(), $send_type = 'html') {
-        if (!in_array(strtoupper($sort_dir), array("html", "text")))
+        if (!in_array(strtolower($send_type), array("html", "text")))
             throw new \Exception('send_type  has to be one of "html", "text" ');
         $payload = array(
             'cid' => $this->cid,
