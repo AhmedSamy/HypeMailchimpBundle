@@ -153,7 +153,7 @@ class MCList extends RestClient
      * @return array
      * @throws MailchimpAPIException
      **/
-    public function batchSubscribe($batch, $delete_member = false, $send_goodbye = false, $send_notify = false) {
+    public function batchUnsubscribe($batch, $delete_member = false, $send_goodbye = false, $send_notify = false) {
         $payload = array(
             'id' => $this->listId,
             'batch' => $batch,
