@@ -142,6 +142,35 @@ class MCList extends RestClient
     }
 
     /**
+     * Unsubscribe a batch of email addresses to a list at once,
+     * These calls are also long, so be sure you increase your timeout values
+     *
+     * @link http://apidocs.mailchimp.com/api/2.0/lists/batch-unsubscribe.php
+     * @param string $batch - array of arrays with ['email','email_type','merge_vars']
+     * @param boolean $delete_member optionnal
+     * @param boolean $send_goodbye optionnal
+     * @param boolean $send_notify optionnal
+     * @return array
+     * @throws MailchimpAPIException
+     **/
+    public function batchSubscribe($batch, $delete_member = false, $send_goodbye = false, $send_notify = false) {
+        $payload = array(
+            'id' => $this->listId,
+            'batch' => $batch,
+			'delete_member' => $delete_member,
+			'send_goodbye' => $send_goodbye,
+			'send_notify' => $send_notify
+        );
+        $apiCall = 'lists/batch-unsubscribe';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data) ? $data : false;
+    }
+
+    /**
      * Subscribe an email addresses to a list,
      * These calls are also long, so be sure you increase your timeout values
      *
