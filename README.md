@@ -62,6 +62,10 @@ HypeMailChimp bundle released under MIT LICENSE
 1. `list`
 2. `campaignSubscriberActivity`
 
+**Helper related**
+
+1. `helper/ping`
+
 Need support for a method not on the list submit an [issue](https://github.com/AhmedSamy/HypeMailchimpBundle/issues/new)
 
 ## Setup
