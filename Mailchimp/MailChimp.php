@@ -76,4 +76,13 @@ class MailChimp extends RestClient
         return new Methods\MCTemplate($this->config, $this->listId, $this->dataCenter);
     }
 
+    /**
+     *
+     * @return \Hype\MailchimpBundle\Mailchimp\Methods\MCHelper
+     */
+    public function getHelper()
+    {
+        return new Methods\MCHelper($this->config, $this->listId, $this->dataCenter);
+    }
+
 }
