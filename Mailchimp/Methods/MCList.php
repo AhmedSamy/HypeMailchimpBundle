@@ -643,5 +643,27 @@ class MCList extends RestClient
         else
             return isset($data) ? $data : false;
     }
+    
+    /**
+     * Retrieve all of Segments for a list.
+     * @link https://apidocs.mailchimp.com/api/2.0/lists/segments.php
+     *
+     * @return bool|mixed
+     * @throws \Hype\MailchimpBundle\Mailchimp\MailchimpAPIException
+     */
+    public function listSegments() {
+        $payload = array(
+            'id' => $this->listId,
+        );
+
+        $apiCall = 'lists/segments';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data) ? $data : false;
+    }
 
 }
