@@ -665,5 +665,29 @@ class MCList extends RestClient
         else
             return isset($data) ? $data : false;
     }
+    
+    /**
+     * Test a segment and return number of matching subscribers.
+     * @link https://apidocs.mailchimp.com/api/2.0/lists/segment-test.php
+     * 
+     * @param $options = array of segment options
+     * @return bool|mixed
+     * @throws \Hype\MailchimpBundle\Mailchimp\MailchimpAPIException
+     */
+    public function segmentTest($options = array()) {
+        $payload = array(
+            'list_id' => $this->listId,
+            'options' => $options
+        );
+        //echo '<pre>';print_r($payload);exit;
+        $apiCall = 'lists/segment-test';
+        $data = $this->requestMonkey($apiCall, $payload);
+        $data = json_decode($data, true);
+
+        if (isset($data['error']))
+            throw new MailchimpAPIException($data);
+        else
+            return isset($data) ? $data : false;
+    }
 
 }
