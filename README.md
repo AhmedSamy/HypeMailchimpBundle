@@ -46,6 +46,8 @@ HypeMailChimp bundle released under MIT LICENSE
 1. `lists/interest-group-add`
 1. `lists/interest-group-update`
 1. `lists/interest-group-del`
+1. `lists/segments`
+1. `lists/segment-test`
 
 **Templates related**
 
