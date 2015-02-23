@@ -679,7 +679,7 @@ class MCList extends RestClient
             'list_id' => $this->listId,
             'options' => $options
         );
-        //echo '<pre>';print_r($payload);exit;
+        
         $apiCall = 'lists/segment-test';
         $data = $this->requestMonkey($apiCall, $payload);
         $data = json_decode($data, true);
