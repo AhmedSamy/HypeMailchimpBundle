@@ -1,4 +1,4 @@
-Hype MailchimpBundle for API V2.0
+Hype MailchimpBundle for API V2.1
 ========================
 
 Symfony2.x bundle for 
