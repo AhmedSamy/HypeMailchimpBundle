@@ -30,6 +30,22 @@ class MailChimp extends RestClient
     }
 
     /**
+     *
+     * @param string $apiKey mailchimp API key
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->config['api_key'] = $apiKey;
+        $key = preg_split("/-/", $apiKey);
+
+        if ($this->config['ssl']) {
+            $this->dataCenter = 'https://' . $key[1] . '.api.mailchimp.com/';
+        } else {
+            $this->dataCenter = 'http://' . $key[1] . '.api.mailchimp.com/';
+        }
+    }
+
+    /**
      * Set mailing list id
      *
      * @param string $listId mailing list id

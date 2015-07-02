@@ -67,6 +67,7 @@ HypeMailChimp bundle released under MIT LICENSE
 **Helper related**
 
 1. `helper/ping`
+1. `helper/generate-text`
 
 Need support for a method not on the list submit an [issue](https://github.com/AhmedSamy/HypeMailchimpBundle/issues/new)
 

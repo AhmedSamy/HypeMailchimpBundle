@@ -282,6 +282,7 @@ class MCCampaign extends RestClient {
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/template-content.php 
      * @return boolean true on success
+     * @return array Campaign Template data
      * @throws MailchimpAPIException
      */
     public function templateContent() {
@@ -294,7 +295,7 @@ class MCCampaign extends RestClient {
         if (isset($data['error']))
             throw new MailchimpAPIException($data);
         else
-            return true;
+            return isset($data) ? $data : false;
     }
 
     /**
