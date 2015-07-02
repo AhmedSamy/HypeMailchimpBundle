@@ -294,7 +294,7 @@ class MCCampaign extends RestClient {
         if (isset($data['error']))
             throw new MailchimpAPIException($data);
         else
-            return true;
+            return isset($data) ? $data : false;
     }
 
     /**
