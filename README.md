@@ -1,4 +1,4 @@
-Hype MailchimpBundle for API V2.1
+Hype MailchimpBundle for API V2.0
 ========================
 
 Symfony2.x bundle for 
@@ -67,6 +67,7 @@ HypeMailChimp bundle released under MIT LICENSE
 **Helper related**
 
 1. `helper/ping`
+1. `helper/generate-text`
 
 Need support for a method not on the list submit an [issue](https://github.com/AhmedSamy/HypeMailchimpBundle/issues/new)
 
