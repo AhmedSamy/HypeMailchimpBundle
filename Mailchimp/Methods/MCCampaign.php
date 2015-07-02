@@ -282,6 +282,7 @@ class MCCampaign extends RestClient {
      * 
      * @link http://apidocs.mailchimp.com/api/2.0/campaigns/template-content.php 
      * @return boolean true on success
+     * @return array Campaign Template data
      * @throws MailchimpAPIException
      */
     public function templateContent() {
