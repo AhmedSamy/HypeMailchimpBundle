@@ -46,6 +46,18 @@ class MailChimp extends RestClient
     }
 
     /**
+     * Verifies if given API key is equal to stored one.
+     * 
+     * @param string $apiKey mailchimp API key
+     * 
+     * @return bool Returns true if keys equal, false otherwise.
+     */
+    public function verifyApiKey($apiKey)
+    {
+        return $this->config['api_key'] == $apiKey;
+    }
+
+    /**
      * Set mailing list id
      *
      * @param string $listId mailing list id
