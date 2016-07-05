@@ -3,6 +3,6 @@ parameters:
 
 services:
     hype_mailchimp:
-      class: %hype_mailchimp.class%
-      arguments: [%hypemailchimp.config%]
+      class: '%hype_mailchimp.class%'
+      arguments: ['%hypemailchimp.config%']
       
