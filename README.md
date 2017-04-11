@@ -4,6 +4,10 @@ Hype MailchimpBundle for API V2.0
 [![Latest Version on Packagist][ico-version]][link-packagist]
 
 [ico-version]: https://img.shields.io/packagist/v/ahmedsamy/hype-mailchimp-bundle.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/ahmedsamy/hype-mailchimp-bundle
+
+
 Symfony2.x bundle for 
 [MailChimp](http://apidocs.mailchimp.com/api/2.0/) API V2 and [Export API](http://apidocs.mailchimp.com/export/1.0/) API V1
 Wrapper bundle that makes accessing Mailchimp functions easily in object oriented using method chaining 
