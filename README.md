@@ -192,8 +192,8 @@ hype_mailchimp:
         var_dump($data);
 ?>
 ```
-**Note** that the user will be subscriber to the default list set in `config.yml` 
-if you want to change the list for this time only, you can use 
+**Note** that the user will be subscribed to the default list set in `config.yml`. 
+If you want to change the list for this time only, you can use 
 ``` php
 <?php 
      $mc = $this->get('hype_mailchimp');
