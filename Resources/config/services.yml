@@ -6,3 +6,5 @@ services:
       class: '%hype_mailchimp.class%'
       arguments: ['%hypemailchimp.config%']
       public: true
+    
+    Hype\MailchimpBundle\Mailchimp\MailChimp: '@hype_mailchimp'
