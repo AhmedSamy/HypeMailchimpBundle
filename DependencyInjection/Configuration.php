@@ -10,8 +10,8 @@ class Configuration implements ConfigurationInterface {
 
 
     public function getConfigTreeBuilder() {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('hype_mailchimp');
+        $treeBuilder = new TreeBuilder('hype_mailchimp');
+        $rootNode = \method_exists(TreeBuilder::class, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('hype_mailchimp');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
